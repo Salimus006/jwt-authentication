@@ -58,8 +58,8 @@ public class DemoApplication implements CommandLineRunner{
 				.birth(LocalDate.of(2000, 12,20))
 				.build());
 
-		this.accountService.addRoeToUser(adminUserName, adminRole);
-		this.accountService.addRoeToUser(adminUserName, userRole);
-		this.accountService.addRoeToUser(simpleUserName, userRole);
+		this.accountService.addRoleToUser(adminUserName, adminRole);
+		this.accountService.addRoleToUser(adminUserName, userRole);
+		this.accountService.addRoleToUser(simpleUserName, userRole);
 	}
 }

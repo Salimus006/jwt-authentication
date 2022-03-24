@@ -9,7 +9,7 @@ public interface IAccountService {
     AppUser saveUser (AppUser user);
     AppRole saveRole(AppRole role);
 
-    void addRoeToUser(String userName, String roleName);
+    void addRoleToUser(String userName, String roleName);
 
     Optional<AppUser> findUserByUserName(String userName);
 
