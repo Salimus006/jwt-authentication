@@ -30,7 +30,7 @@
 ### Config sécurité (Spring sécurity)
 #### Prérecquis: 
 - Ajout du starter spring-boot-starter-test
-#### Config (voir package config): 
+#### Config (voir package config test): 
 - La class <code>CryptConfig</code> permet d'encoder/decoder les mdp via <code>BCryptPasswordEncoder</code>
 - La class <code>JwtAuthenticationFilter</code> s'occupe de l'authentification et de la génération du JWT
 - La class <code>JwtAuthorizationFilter</code> s'occupe de la validation du token 
