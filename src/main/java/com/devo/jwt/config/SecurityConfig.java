@@ -41,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
-        http.authorizeRequests().antMatchers("/login/**", "/register/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/login/**", "/register").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/register/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/tasks/**").hasAnyAuthority("ADMIN");
 
        /* // To access to h2 console (don't use it in production env)

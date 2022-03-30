@@ -49,12 +49,14 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public void addRoleToUser(String userName, String roleName) {
+    public AppUser addRoleToUser(String userName, String roleName) {
         // first get role by name
         AppRole role = this.roleRepository.findByRoleName(roleName).orElseThrow(RoleNotFoundException::new);
         AppUser user = this.userRepository.findByUserName(userName).orElseThrow(UserNotFoundException::new);
 
         user.getRoles().add(role);
+
+        return user;
     }
 
     @Override

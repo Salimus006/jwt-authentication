@@ -1,0 +1,24 @@
+image: maven:latest
+
+variables:
+  MAVEN_REPOSITORY: "-Dmaven.repo.local=.m2/repository"
+  MVN_SKIP_TEST: "-DskipTests=true"
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+    -
+stages:
+  - compile
+  - test
+
+java compile:
+  stage: compile
+  script:
+    - mvn $MAVEN_REPOSITORY $MVN_SKIP_TEST compile
+
+java test:
+  stage: test
+  script:
+    - mvn $MAVEN_REPOSITORY test install

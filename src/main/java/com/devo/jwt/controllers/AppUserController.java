@@ -4,7 +4,6 @@ import com.devo.jwt.exceptions.UserNotFoundException;
 import com.devo.jwt.models.AppUser;
 import com.devo.jwt.services.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
@@ -16,7 +15,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/users")
@@ -46,14 +46,6 @@ public class AppUserController {
                 .orElseThrow(UserNotFoundException::new);
     }
 
-    @GetMapping("{firstName}")
-    public ResponseEntity<List<AppUser>> findUsersByFirstName(@RequestParam String firstName) {
-        if(StringUtils.isBlank(firstName)){
-            throw new IllegalArgumentException("firstName ne peut pas être vide");
-        }
-        return ResponseEntity.ok(service.findByFirstName(firstName));
-    }
-
     @GetMapping()
     public ResponseEntity<List<AppUser>> all() {
         return ResponseEntity.ok(service.findAll());
@@ -63,10 +55,6 @@ public class AppUserController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<AppUser> putUser(
             @PathVariable("id") final Long id, @RequestBody final AppUser user) {
-       /* service.findById(id).map(u -> {
-            service.save(user);
-            return u;
-        }).orElseThrow(UserNotFoundException::new);*/
         service.findById(id).orElseThrow(UserNotFoundException::new);
         return ResponseEntity.ok(service.save(user));
     }
