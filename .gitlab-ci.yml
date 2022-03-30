@@ -8,7 +8,7 @@ cache:
   paths:
     - .m2/repository/
     - target/
-    -
+
 stages:
   - compile
   - test
