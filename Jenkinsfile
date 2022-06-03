@@ -1,20 +1,40 @@
 pipeline {
-    agent any
-
+    agent none
     stages {
         stage('Build') {
+            agent any
             steps {
-                echo 'Building..'
+                checkout scm
+                sh 'make'
+                stash includes: '**/target/*.jar', name: 'app' 
             }
         }
-        stage('Test') {
+        stage('Test on Linux') {
+            agent { 
+                label 'linux'
+            }
             steps {
-                echo 'Testing..'
+                unstash 'app' 
+                sh 'make check'
+            }
+            post {
+                always {
+                    junit '**/target/*.xml'
+                }
             }
         }
-        stage('Deploy') {
+        stage('Test on Windows') {
+            agent {
+                label 'windows'
+            }
             steps {
-                echo 'Deploying....'
+                unstash 'app'
+                bat 'make check' 
+            }
+            post {
+                always {
+                    junit '**/target/*.xml'
+                }
             }
         }
     }
